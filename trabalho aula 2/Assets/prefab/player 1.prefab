@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 2876965526149257410}
   m_Layer: 0
   m_Name: player 1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -301,7 +301,7 @@ MonoBehaviour:
   jumpForce: 5
   canJump: 1
   displayName: {fileID: 2692414237010832015}
-  objetoCount: 0
+  nameInput: {fileID: 0}
   playerName:
     m_InternalValue:
       utf8LengthInBytes: 0

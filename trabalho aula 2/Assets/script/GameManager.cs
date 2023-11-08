@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
-    
+    public NetworkVariable<int> pickupCount = new();
+
+
     string playerName;
     public static string PlayerName
     {
-        get { return Instance.playerName;}
+        get { return Instance.playerName; }
         set
         {
             Instance.playerName = value;
         }
     }
-   public  static GameManager Instance;
+
+
+
+
+    public static GameManager Instance;
     private void Awake()
     {
         if (Instance == null)
@@ -28,6 +34,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     void Start()
     {
         if (NetworkManager.Singleton != null)
@@ -35,7 +42,20 @@ public class GameManager : MonoBehaviour
             NetworkManager.Singleton.OnServerStarted += OnServerStartedHandler;
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedHandler;
         }
+
+
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void objetospegadosServerRpc()
+    {
+
+        pickupCount.Value += 1;
+    }
+    
+    
+    
+
     private void OnServerStartedHandler()
     {
         Debug.Log("Host conectado");
@@ -47,10 +67,6 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Cliente {clientId} conectado");
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+    
 }
